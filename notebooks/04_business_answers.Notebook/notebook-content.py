@@ -31,15 +31,13 @@
 # MAGIC */
 # MAGIC 
 # MAGIC SELECT
-# MAGIC     depot_name AS asset_type,
+# MAGIC     LEFT(asset_id, 3) AS asset_type,
 # MAGIC     ROUND(AVG(rental_duration_days), 2) AS avg_duration_days,
 # MAGIC     COUNT(*) AS rentals
-# MAGIC FROM gold.gold_fact_rental fr
-# MAGIC JOIN gold.gold_dim_depots d ON d.depot_code = fr.depot_code
+# MAGIC FROM gold.gold_fact_rental
 # MAGIC WHERE is_returned = 1
 # MAGIC GROUP BY asset_type
 # MAGIC ORDER BY avg_duration_days DESC;
-# MAGIC 
 # MAGIC 
 # MAGIC   
 
@@ -121,7 +119,7 @@
 # MAGIC     dd.depot_name,
 # MAGIC     COUNT(fb.bill_id) AS bills,
 # MAGIC     ROUND(SUM(fb.amount_inr), 0) AS revenue,
-# MAGIC     ROUND(SUM(fb.amount_inr)/COUNT(fr.rental_id), 0) AS revenue_per_rental
+# MAGIC     ROUND(SUM(fb.amount_inr)/COUNT(fb.bill_id), 0) AS revenue_per_rental
 # MAGIC FROM gold.gold_fact_billing fb
 # MAGIC JOIN gold.gold_fact_rental fr
 # MAGIC     ON fb.rental_id = fr.rental_id

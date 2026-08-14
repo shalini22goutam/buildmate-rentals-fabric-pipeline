@@ -154,6 +154,11 @@ customers_dedup_df = (
 silver_customers_df = (
     customers_dedup_df
     .withColumn(
+        "customer_name", 
+        F.initcap
+            (F.trim(F.col("CUSTOMER_NAME")))
+        )
+    .withColumn(
         "customer_type",
         F.when(
             F.lower(F.col("CUSTOMER_TYPE")).isin("individual", "ind"),
@@ -196,7 +201,7 @@ silver_customers_df = (
     silver_customers_df
     .selectExpr(
         "CUSTOMER_ID as customer_id",
-        "CUSTOMER_NAME as customer_name",
+        "customer_name",
         "registered_on",
         "kyc_verified_on",
         "customer_type",
@@ -339,7 +344,7 @@ silver_rentals_df = (
     )
     .withColumn(
         "rental_type",
-        F.lower(F.col("RENTAL_TYPE"))
+        F.upper(F.col("RENTAL_TYPE"))
     )
 )
 
@@ -456,39 +461,6 @@ careless =  careless_rentals_df.count()
 print(f"Filter without NULL handling         -> {careless:,} rows")
 print(f"Filter with NULL-safe condition      -> {correct:,} rows")
 print(f"Still-out rentals lost without NULL handling -> {correct - careless:,}")
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
-#Alternative approach for coalese.
-"""
-
-bad = (
-    F.col("checkin_ts").isNotNull()
-    & F.col("checkout_ts").isNotNull()
-    & (F.col("checkin_ts") < F.col("checkout_ts"))
-)
-
-# Quarantine bad records
-silver_rentals_quarantine_df = (
-    silver_rentals_df
-    .filter(bad)
-    .withColumn(
-        "quarantine_reason",
-        F.lit("check-in recorded before a check-out")
-    )
-)
-
-# Keep valid records
-silver_rentals_df = silver_rentals_df.filter(~bad)
-
-"""
 
 # METADATA ********************
 
@@ -693,6 +665,39 @@ for table in tables:
     full_table_name = f"{schema}.{table}"
     count = spark.table(full_table_name).count()
     print(f"{table:30} {count:>10,}")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+#Alternative approach for coalese in rentals.
+"""
+
+bad = (
+    F.col("checkin_ts").isNotNull()
+    & F.col("checkout_ts").isNotNull()
+    & (F.col("checkin_ts") < F.col("checkout_ts"))
+)
+
+# Quarantine bad records
+silver_rentals_quarantine_df = (
+    silver_rentals_df
+    .filter(bad)
+    .withColumn(
+        "quarantine_reason",
+        F.lit("check-in recorded before a check-out")
+    )
+)
+
+# Keep valid records
+silver_rentals_df = silver_rentals_df.filter(~bad)
+
+"""
 
 # METADATA ********************
 

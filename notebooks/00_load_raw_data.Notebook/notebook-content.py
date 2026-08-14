@@ -66,15 +66,3 @@ spark.sql("CREATE SCHEMA IF NOT EXISTS gold")
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
-
-# CELL ********************
-
-# MAGIC %%sql
-# MAGIC --test
-
-# METADATA ********************
-
-# META {
-# META   "language": "sparksql",
-# META   "language_group": "synapse_pyspark"
-# META }
