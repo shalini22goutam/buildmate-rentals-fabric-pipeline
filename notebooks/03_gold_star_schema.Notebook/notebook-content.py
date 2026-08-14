@@ -224,6 +224,14 @@ gold_dim_customer_df.write \
 gold_fact_rental_df = (
     silver_rentals_df
     .withColumn(
+        "checkout_date", 
+            F.to_date("checkout_ts")
+            )
+    .withColumn(
+        "checkin_date", 
+            F.to_date("checkin_ts")
+            )
+    .withColumn(
         "rental_duration_days",
         F.round(
             (
@@ -278,6 +286,8 @@ gold_fact_rental_df = (
         "customer_id",
         "depot_code",
         "asset_id",
+        "checkin_date",
+        "checkout_date",
         "checkout_ts",
         "checkin_ts",
         "rental_type",

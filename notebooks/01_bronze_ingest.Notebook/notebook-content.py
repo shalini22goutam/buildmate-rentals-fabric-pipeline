@@ -49,16 +49,16 @@ def read_raw_csv(path):
 # CELL ********************
 
 to_bronze(read_raw_csv(f"{SOURCE}/billing/billing_export.csv")) \
-    .write.mode("overwrite").saveAsTable("bronze.bronze_billing")
+    .write.mode("append").saveAsTable("bronze.bronze_billing")
 
 to_bronze(read_raw_csv(f"{SOURCE}/customer_master/customer_master_export.csv")) \
-    .write.mode("overwrite").saveAsTable("bronze.bronze_customers")
+    .write.mode("append").saveAsTable("bronze.bronze_customers")
 
 to_bronze(read_raw_csv(f"{SOURCE}/depots/depot_master.csv")) \
-    .write.mode("overwrite").saveAsTable("bronze.bronze_depots")
+    .write.mode("append").saveAsTable("bronze.bronze_depots")
 
 to_bronze(read_raw_csv(f"{SOURCE}/rentals/rentals_*.csv")) \
-    .write.mode("overwrite").saveAsTable("bronze.bronze_rentals")
+    .write.mode("append").saveAsTable("bronze.bronze_rentals")
     
 
 # METADATA ********************
