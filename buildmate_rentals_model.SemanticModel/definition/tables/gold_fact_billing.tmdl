@@ -1,0 +1,62 @@
+table gold_fact_billing
+	lineageTag: e231904f-b8c0-4a99-9189-d2537828a08e
+	sourceLineageTag: [gold].[gold_fact_billing]
+
+	column bill_id
+		dataType: string
+		lineageTag: 41726915-d538-48be-a343-3e6169c4e4ca
+		sourceLineageTag: bill_id
+		summarizeBy: none
+		sourceColumn: bill_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column rental_id
+		dataType: string
+		lineageTag: e8070d66-bd17-49d4-af28-e9d9389314c5
+		sourceLineageTag: rental_id
+		summarizeBy: none
+		sourceColumn: rental_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column bill_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cb950da5-1de3-432e-8374-fae34467cdec
+		sourceLineageTag: bill_date
+		summarizeBy: none
+		sourceColumn: bill_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_inr
+		dataType: decimal
+		formatString: "Rs."\ #,0.00;#,0.00\ -"Rs.";"Rs."\ #,0.00
+		lineageTag: 46c7c369-69e8-4e19-8a54-788030fb3f1a
+		sourceLineageTag: amount_inr
+		summarizeBy: sum
+		sourceColumn: amount_inr
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	column payer_type
+		dataType: string
+		lineageTag: d0d87c1d-219c-46ca-8ad6-f5391e1be996
+		sourceLineageTag: payer_type
+		summarizeBy: none
+		sourceColumn: payer_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition gold_fact_billing = entity
+		mode: directLake
+		source
+			entityName: gold_fact_billing
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_buildmate'
+

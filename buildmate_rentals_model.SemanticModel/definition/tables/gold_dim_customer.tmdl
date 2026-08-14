@@ -1,0 +1,104 @@
+table gold_dim_customer
+	lineageTag: 7c75443a-7c3b-41c4-9aee-6d1d4c2f7929
+	sourceLineageTag: [gold].[gold_dim_customer]
+
+	column customer_id
+		dataType: string
+		lineageTag: 78d48909-cb71-4d64-8d60-3659033567f6
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: b793d1c7-d9c8-4924-85e3-0cba7fa6adb7
+		sourceLineageTag: customer_name
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column registered_on
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9bb4a985-252e-44bd-a503-f903460282c9
+		sourceLineageTag: registered_on
+		summarizeBy: none
+		sourceColumn: registered_on
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure
+		dataType: int64
+		formatString: 0
+		lineageTag: 71d4eebc-f62a-4887-ab81-fc1bb3d67822
+		sourceLineageTag: tenure
+		summarizeBy: none
+		sourceColumn: tenure
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_band
+		dataType: string
+		lineageTag: edc0467f-0d5b-42a8-9fe9-a87411f837e9
+		sourceLineageTag: tenure_band
+		summarizeBy: none
+		sourceColumn: tenure_band
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column kyc_verified_on
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 45d47827-54af-4c70-83b7-ff1db418a098
+		sourceLineageTag: kyc_verified_on
+		summarizeBy: none
+		sourceColumn: kyc_verified_on
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_type
+		dataType: string
+		lineageTag: e1bd2f66-5499-47e6-a19b-af06b8edfc23
+		sourceLineageTag: customer_type
+		summarizeBy: none
+		sourceColumn: customer_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: d02a9666-f95b-41d8-baf0-974b9426503c
+		sourceLineageTag: city
+		summarizeBy: none
+		sourceColumn: city
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition gold_dim_customer = entity
+		mode: directLake
+		source
+			entityName: gold_dim_customer
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_buildmate'
+
+	changedProperty = IsHidden
+

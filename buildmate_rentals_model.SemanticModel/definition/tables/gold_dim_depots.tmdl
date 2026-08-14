@@ -1,0 +1,48 @@
+table gold_dim_depots
+	lineageTag: 67837b29-e359-4f61-822f-ac1ac4f8fa65
+	sourceLineageTag: [gold].[gold_dim_depots]
+
+	column depot_code
+		dataType: string
+		lineageTag: 550a982d-f60a-4e7c-993a-7a48b8f193aa
+		sourceLineageTag: depot_code
+		summarizeBy: none
+		sourceColumn: depot_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column depot_name
+		dataType: string
+		lineageTag: 96e96a33-e04f-482a-adc9-25a6a6806919
+		sourceLineageTag: depot_name
+		summarizeBy: none
+		sourceColumn: depot_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone
+		dataType: string
+		lineageTag: cf29592d-1101-494d-99d9-d445f725fdcd
+		sourceLineageTag: zone
+		summarizeBy: none
+		sourceColumn: zone
+
+		annotation SummarizationSetBy = Automatic
+
+	column fleet_size
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b1610de-4fd9-429b-a197-d5eaa319ebed
+		sourceLineageTag: fleet_size
+		summarizeBy: none
+		sourceColumn: fleet_size
+
+		annotation SummarizationSetBy = Automatic
+
+	partition gold_dim_depots = entity
+		mode: directLake
+		source
+			entityName: gold_dim_depots
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_buildmate'
+

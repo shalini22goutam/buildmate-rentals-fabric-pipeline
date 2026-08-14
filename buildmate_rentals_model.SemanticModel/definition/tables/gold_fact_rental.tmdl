@@ -1,0 +1,123 @@
+table gold_fact_rental
+	lineageTag: 4a58f63d-a183-414c-a5f4-2d8ac312253b
+	sourceLineageTag: [gold].[gold_fact_rental]
+
+	measure Utilisation =
+			
+			DIVIDE(
+			    SUM(gold_fact_rental[asset_days_in_window]),
+			    SUMX(
+			        gold_dim_depots,
+			        gold_dim_depots[fleet_size] * 30
+			    )
+			) * 100
+		lineageTag: 66280186-d23a-4fc8-83b2-340283fe9889
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rental_id
+		dataType: string
+		lineageTag: 342fc320-c8b0-4028-ba62-bc7f3897a503
+		sourceLineageTag: rental_id
+		summarizeBy: none
+		sourceColumn: rental_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 17bc2c7a-c706-439c-8bf2-af4b790b46ae
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column depot_code
+		dataType: string
+		lineageTag: a02d7482-d22f-442e-aabd-3bd33c1bb6c3
+		sourceLineageTag: depot_code
+		summarizeBy: none
+		sourceColumn: depot_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_id
+		dataType: string
+		lineageTag: d1fb9af5-7254-4c8a-9115-7979abe22b30
+		sourceLineageTag: asset_id
+		summarizeBy: none
+		sourceColumn: asset_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column checkout_ts
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6f4cc656-b7b0-4eec-88ee-a9812ae2713d
+		sourceLineageTag: checkout_ts
+		summarizeBy: none
+		sourceColumn: checkout_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column checkin_ts
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bc0fd1fd-e3ad-4173-bc20-24c306e42b36
+		sourceLineageTag: checkin_ts
+		summarizeBy: none
+		sourceColumn: checkin_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column rental_type
+		dataType: string
+		lineageTag: 1a805af1-3de9-4bff-b119-0d072821ab27
+		sourceLineageTag: rental_type
+		summarizeBy: none
+		sourceColumn: rental_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column rental_duration_days
+		dataType: double
+		lineageTag: 09c27cc5-15eb-4858-8ddf-2958d1adb954
+		sourceLineageTag: rental_duration_days
+		summarizeBy: sum
+		sourceColumn: rental_duration_days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_returned
+		dataType: int64
+		formatString: 0
+		lineageTag: 55b43ad6-6555-4258-8cb9-4569436d9504
+		sourceLineageTag: is_returned
+		summarizeBy: sum
+		sourceColumn: is_returned
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_days_in_window
+		dataType: double
+		lineageTag: 2dc383ff-56ee-4cb5-8e5a-970f6d426d6f
+		sourceLineageTag: asset_days_in_window
+		summarizeBy: sum
+		sourceColumn: asset_days_in_window
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition gold_fact_rental = entity
+		mode: directLake
+		source
+			entityName: gold_fact_rental
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_buildmate'
+
