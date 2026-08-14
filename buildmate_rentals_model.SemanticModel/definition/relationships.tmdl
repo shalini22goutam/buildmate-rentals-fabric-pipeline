@@ -6,11 +6,11 @@ relationship 91d90e55-ed22-c6f1-dd60-9732d01143c9
 	fromColumn: gold_fact_rental.customer_id
 	toColumn: gold_dim_customer.customer_id
 
-relationship b377039d-1c02-b9ee-1fe9-dc9233d01b04
-	fromColumn: gold_fact_billing.bill_date
-	toColumn: gold_dim_date.date_key
-
 relationship 654813ae-2826-0e62-42fd-aeff94804d7e
 	fromColumn: gold_fact_billing.rental_id
 	toColumn: gold_fact_rental.rental_id
+
+relationship c901c3fb-1aa9-f132-1a82-7fcb88bc111b
+	fromColumn: gold_fact_rental.checkout_date
+	toColumn: gold_dim_date.date_key
 

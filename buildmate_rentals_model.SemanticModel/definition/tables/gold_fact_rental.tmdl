@@ -114,6 +114,26 @@ table gold_fact_rental
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column checkin_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e89c0db7-89af-414a-8942-bfca45d82018
+		sourceLineageTag: checkin_date
+		summarizeBy: none
+		sourceColumn: checkin_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column checkout_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 86aeaddd-6b53-4387-9910-c6e9cf5d7e1a
+		sourceLineageTag: checkout_date
+		summarizeBy: none
+		sourceColumn: checkout_date
+
+		annotation SummarizationSetBy = Automatic
+
 	partition gold_fact_rental = entity
 		mode: directLake
 		source
