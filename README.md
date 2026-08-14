@@ -2,6 +2,8 @@
 
 This project demonstrates an end-to-end data engineering pipeline for BuildMate Rentals, built on Microsoft Fabric using Medallion Architecture. The project ingests, transforms, validates, and serves rental data across Bronze, Silver, and Gold layers using Fabric Lakehouse, PySpark, and SQL.
 
+Assignment walkthrough link : https://drive.google.com/drive/folders/18Y1uYlN1mrlzrxd6-vVsJuqG1Yl2RrTb?usp=sharing
+
 
 ## Architecture
 
